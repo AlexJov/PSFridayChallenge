@@ -1,0 +1,3 @@
+AWSLambda/products-fn/src/node_modules
+AWSLambda/pets-fn/src/node_modules
+*.zip
