@@ -1,7 +1,7 @@
 version: "3.1"
 services:
   app-service:
-    container_name: app-service
+    container_name: pet-app-service
     restart: always
     build:
       context: ./petApp
