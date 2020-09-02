@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<html xmlns:th="https://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'home')}">
+
+  <body>
+
+    <h2 th:text="#{welcome}">Welcome to our page</h2>
+    <div class="row">
+        <div class="col-md-12">
+          <img class="img-responsive" src="../static/resources/images/pets.png" th:src="@{/resources/images/pets.png}"/>
+          <a class="btn btn-default" style="background-color:green;color:black;width:280px;height:40px;" th:href="@{/lambda}">Call My Lambda Service</a>
+        </div>
+        
+    </div>
+
+    
+
+  </body>
+
+</html>
