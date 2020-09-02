@@ -1,0 +1,30 @@
+version: "3.1"
+services:
+  app-service:
+    container_name: app-service
+    restart: always
+    build:
+      context: ./petApp
+      dockerfile: Dockerfile.dev
+    ports:
+      - "8080:8080"
+    expose:
+      - 8080
+    environment:
+      APPSERVER_AGENT_HOME: "/opt/appdynamics/AppServerAgent"
+      APPD_AGENT_VERSION: 20.6.0.30555
+
+
+      APPDYNAMICS_CONTROLLER_HOST_NAME: CONTROLLER_HOST_HERE
+      APPDYNAMICS_CONTROLLER_PORT: PORT_HERE
+      APPDYNAMICS_CONTROLLER_SSL_ENABLED: IS_IT?
+
+      APPDYNAMICS_AGENT_ACCOUNT_NAME: ACCOUNT_NAME_HERE
+      APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY: ACCOUNT_ACCESS_KEY
+
+      APPDYNAMICS_AGENT_APPLICATION_NAME: APP_NAME_SAME_AS_IN_LAMBDA_CONFIG
+
+      APPDYNAMICS_AGENT_TIER_NAME: TIER_HERE
+      APPDYNAMICS_JAVA_AGENT_REUSE_NODE_NAME: "true"
+      APPDYNAMICS_JAVA_AGENT_REUSE_NODE_NAME_PREFIX: NODE_HERE
+  

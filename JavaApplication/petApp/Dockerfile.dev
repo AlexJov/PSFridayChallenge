@@ -1,0 +1,37 @@
+FROM openjdk:8-jdk-alpine as build
+
+ENV MAVEN_VERSION 3.5.4
+ENV MAVEN_HOME /usr/lib/mvn
+ENV PATH $MAVEN_HOME/bin:$PATH
+ 
+RUN wget http://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz && \
+ tar -zxvf apache-maven-$MAVEN_VERSION-bin.tar.gz && \
+ rm apache-maven-$MAVEN_VERSION-bin.tar.gz && \
+ mv apache-maven-$MAVEN_VERSION /usr/lib/mvn
+ 
+WORKDIR /workspace/app
+ 
+COPY pom.xml .
+COPY src src
+COPY wrapper wrapper
+COPY mvnw.cmd mvnw.cmd
+COPY mvnw mvnw
+
+RUN mkdir -p target/dependency
+
+# compile and package
+RUN mvn package -Dcheckstyle.skip -e
+
+RUN ls target
+
+# Set your image name
+FROM MY_USERNAME_HERE/java-agent:latest
+ENV SRC_DIR=/workspace/app
+WORKDIR $SRC_DIR
+
+# copy a file from the previous step
+COPY --from=build ${SRC_DIR}/target/spring-petclinic-2.3.0.BUILD-SNAPSHOT.jar ${SRC_DIR}/app.jar
+
+# Attach an agent
+ENTRYPOINT java -javaagent:${APPSERVER_AGENT_HOME}/javaagent.jar \
+  -jar ${SRC_DIR}/app.jar    
