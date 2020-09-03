@@ -1,5 +1,2 @@
-# PSFridayChallenge repo
 
-Here you can find source code for 2 Lambda functions and PetClinic Java application.
-
-Refer to the challenge document for details.
+![challenge-accepted-meme](https://user-images.githubusercontent.com/23483887/92138618-819d3700-ee06-11ea-905c-df2822fc60d8.jpg)
