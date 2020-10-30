@@ -12,17 +12,32 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 
 import java.nio.charset.StandardCharsets;
+
+import java.util.HashMap;
+
 // snippet-end:[lambda.java1.invoke.import]
 
 public class LambdaFunction {
 
-    public static Integer Invoke(String functionName, String inputValue, Regions region, String accessKey, String accessKeySecret){
+    public static Integer Invoke(String functionName, HashMap<String,String> inputValues, Regions region, String accessKey, String accessKeySecret){
 
             // snippet-start:[lambda.java1.invoke.main]
 
-            String payload = "{\n" +
-            " \"input\": \"" + inputValue + "\" \n" +
-            "}";
+            // String payload = "{\n" +
+            // " \"input\": \"" + inputValue + "\" \n" +
+            // "}";
+            String payload = "{\n";
+
+		    int count =0;
+		    for (String key : inputValues.keySet()) {
+			if (count!=0)
+			{
+				payload +=",\n";
+			}
+			payload += " \""+key+"\": \""+inputValues.get(key)+ "\"";
+			count++;
+		    }
+		    payload += "\n}";
 
             System.out.println(payload);
 
