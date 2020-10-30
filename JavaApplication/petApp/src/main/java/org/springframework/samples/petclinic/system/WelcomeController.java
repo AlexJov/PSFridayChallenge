@@ -20,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.amazonaws.regions.Regions;
+import java.util.HashMap; 
 
 @Controller
 class WelcomeController {
@@ -36,7 +37,8 @@ class WelcomeController {
 		String accessKey = "YOUR_ACCESS_KEY_HERE";
 		String accessKeySecret = "YOUR_SECRET_HERE";
 		Regions region = Regions.EU_WEST_2;
-		String inputPayload = "products";
+		HashMap<String ,String> inputPayload = new HashMap<String ,String>();
+		inputPayload.put("input","products");
 
 		LambdaFunction.Invoke(functionArn, inputPayload, region, accessKey, accessKeySecret);
 
